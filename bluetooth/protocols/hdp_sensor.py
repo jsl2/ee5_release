@@ -62,17 +62,13 @@ bluez_app_sensor_map = {}
 
 class HDP(Sensor):
     def __init__(self, plugin):
-        # TODO: Process sensor plugins. Which type of HDP are we working with?
-        # HDP DataType (e.g.0x100F = BCM)
-        # Which parse_message to use? (look at 'Spec')
-        # This parse_message will parse data types defined in 'Handles'
         global bus
         self.plugin = plugin
         self.fb = None
         self.plugin_name = self.plugin["SensorName"]
         spec_module_name = "bluetooth.protocols.hdp.{0}".format(str.lower(self.plugin["SensorName"].replace('-', '_')))
-        module = import_module(spec_module_name)
-        self.parse_attribute = getattr(module, "parse_attribute")
+        mod = import_module(spec_module_name)
+        self.parse_attribute = getattr(mod, "parse_attribute")
 
         self.is_subscribed = False
         self.measurements = {}

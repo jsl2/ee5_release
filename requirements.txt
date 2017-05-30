@@ -1,0 +1,4 @@
+pybluez
+pyrebase
+PyYAML
+pygobject
