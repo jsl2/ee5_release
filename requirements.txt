@@ -2,3 +2,4 @@ pybluez
 pyrebase
 PyYAML
 pygobject
+evdev
