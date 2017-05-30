@@ -1,0 +1,145 @@
+{
+  "SensorName": "HBF-206IT",
+  "ConnectionType": "Bluetooth",
+  "Protocol": "HDP",
+  "OUI": 8713,
+  "MDEPDataType": 4111,
+  "Handles": {
+    "1": {
+      "Measurement": "Weight",
+      "Unit": "kg",
+      "Type": "float_timestamp"
+    },
+    "3": {
+      "Measurement": "Body Mass Index",
+      "Unit": "kg/m^2",
+      "Type": "float_timestamp"
+    },
+    "4": {
+      "Measurement": "Body Fat Rate",
+      "Unit": "%",
+      "Type": "float_timestamp"
+    },
+    "5": {
+      "Measurement": "Basal Metabolism",
+      "Unit": "%",
+      "Type": "float_timestamp"
+    },
+    "6": {
+      "Measurement": "Visceral Fat Level",
+      "Unit": "cal",
+      "Type": "sfloat_timestamp"
+    },
+    "7": {
+      "Measurement": "Body Age",
+      "Unit": "y",
+      "Type": "sfloat_timestamp"
+    },
+    "8": {
+      "Measurement": "Skeletal Muscle Rate",
+      "Unit": "%",
+      "Type": "sequenceof.sfloat[0]_timestamp"
+    }
+  },
+  "Configs": [
+    {
+      "ChartKey": "LineGraph",
+      "Name": "Weight",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S1"
+        }
+      ]
+    },
+    {
+      "ChartKey": "Indicator",
+      "Name": "Weight",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S1"
+        }
+      ]
+    },
+    {
+      "ChartKey": "TableChart",
+      "Name": "Weight",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S1"
+        }
+      ]
+    },
+    {
+      "ChartKey": "Indicator",
+      "Name": "BMI",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S3"
+        }
+      ]
+    },
+    {
+      "ChartKey": "TableChart",
+      "Name": "BMI",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S3"
+        }
+      ]
+    },
+    {
+      "ChartKey": "LineGraph",
+      "Name": "BMI",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S3"
+        }
+      ]
+    },
+    {
+      "ChartKey": "PieChart",
+      "Name": "Body Composition",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S4"
+        },
+        {
+          "SeriesKey": "S6"
+        },
+        {
+          "SeriesKey": "S8"
+        }
+      ]
+    },
+    {
+      "ChartKey": "TableChart",
+      "Name": "Body Composition",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S4"
+        },
+        {
+          "SeriesKey": "S6"
+        },
+        {
+          "SeriesKey": "S8"
+        }
+      ]
+    },
+    {
+      "ChartKey": "MultiLineGraph",
+      "Name": "Body Composition",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S4"
+        },
+        {
+          "SeriesKey": "S6"
+        },
+        {
+          "SeriesKey": "S8"
+        }
+      ]
+    }
+  ]
+}

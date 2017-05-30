@@ -1,0 +1,88 @@
+{
+  "SensorName": "HEM-7081-IT",
+  "ConnectionType": "Bluetooth",
+  "Protocol": "HDP",
+  "OUI": 8713,
+  "MDEPDataType": 4103,
+  "Handles": {
+    "1_0": {
+      "Measurement": "Systolic Blood Pressure",
+      "Unit": "mmHg",
+      "Type": "sequenceof.sfloat[0]_timestamp"
+    },
+    "1_1": {
+      "Measurement": "Diastolic Blood Pressure",
+      "Unit": "mmHg",
+      "Type": "sequenceof.sfloat[1]_timestamp"
+    },
+    "1_2": {
+      "Measurement": "Mean Blood Pressure",
+      "Unit": "mmHg",
+      "Type": "sequenceof.sfloat[2]_timestamp"
+    },
+    "2": {
+      "Measurement": "Pulse",
+      "Unit": "bpm",
+      "Type": "sfloat_timestamp"
+    }
+  },
+  "Configs": [
+    {
+      "ChartKey": "MultiLineGraph",
+      "Name": "Blood Pressure",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S1_0"
+        },
+        {
+          "SeriesKey": "S1_1"
+        },
+        {
+          "SeriesKey": "S1_2"
+        }
+      ]
+    },
+    {
+      "ChartKey": "TableChart",
+      "Name": "Blood Pressure",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S1_0"
+        },
+        {
+          "SeriesKey": "S1_1"
+        },
+        {
+          "SeriesKey": "S1_2"
+        }
+      ]
+    },
+    {
+      "ChartKey": "TableChart",
+      "Name": "Pulse",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S2"
+        }
+      ]
+    },
+    {
+      "ChartKey": "Indicator",
+      "Name": "Pulse",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S2"
+        }
+      ]
+    },
+    {
+      "ChartKey": "LineGraph",
+      "Name": "Pulse",
+      "TimeSeries": [
+        {
+          "SeriesKey": "S2"
+        }
+      ]
+    }
+  ]
+}
