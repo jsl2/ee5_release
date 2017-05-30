@@ -6,18 +6,15 @@ All sensors must have a 'monitor' method, which when run will asynchronously to 
 the sensor for measurements and send results to firebase.
 """
 import gobject
-import hashlib
 import inspect
 import logging
 import os
-import threading
 from dbus.mainloop.glib import DBusGMainLoop
 from importlib import import_module
 from threading import Thread
 
 import yaml
 
-import Last_tagged_user
 import firebase
 from errors import PluginError
 from sensor import Sensor
@@ -25,8 +22,6 @@ from sensor import Sensor
 
 class Gateway(object):
     REQUIRED_PLUGIN_KEYS = {"SensorName", "ConnectionType", "Protocol", "Handles", "Configs"}
-
-    plugins = {}
 
     def __init__(self):
         self.fb = firebase.Firebase()
@@ -79,7 +74,7 @@ class Gateway(object):
                 self.logger.exception(e)
                 return None
 
-            self.firebase_plugin_setup(plugin)
+            # self.firebase_plugin_setup(plugin)
 
             conn = str.lower(plugin["ConnectionType"])
             protocol = str.lower(plugin["Protocol"])
@@ -128,72 +123,6 @@ class Gateway(object):
         if not plugin["ConnectionType"] == "Bluetooth":
             raise PluginError("Currently only bluetooth plugins are supported!")
 
-    def firebase_plugin_setup(self, plugin):
-        """Todo: Check firebase is ready to work with given plugin.
-        If not, firebase will be initialised.
-            1) Check if Sensor with key = md5 hash of SensorName exists
-                a) If not create Sensor table with key of the MD5 hash:
-                   ConnectionType, SensorName and Series (Type & Weight)
-            2) For each config, check if Config with key = md5 hash of the
-               stringified config exists.
-                a) If not create config 
-
-        Args:
-            plugin (dict): Validated plugin dictionary
-
-        Returns:
-            None
-        """
-        sensor_key = self.setup_sensor(plugin)
-        self.setup_configs(plugin, sensor_key)
-
-    def setup_sensor(self, plugin):
-        sensor_hash = hashlib.md5(plugin['SensorName']).hexdigest()
-        sensor_result = self.fb.db.child("SensorsF").child(sensor_hash).get()
-        if not sensor_result.val():
-            self.logger.debug("Sensor {0} does not exist on firebase. Creating with key {1}".format(plugin[
-                                                                                                        'SensorName'],
-                                                                                                    sensor_hash))
-            sensor = {
-                "ConnectionType": plugin['ConnectionType'],
-                "SensorName": plugin['SensorName'],
-                "Series": {}
-            }
-            for handle_name, handle in plugin['Handles'].iteritems():
-                handle_name = "S{0}".format(handle_name)
-                sensor["Series"][handle_name] = {}
-                sensor["Series"][handle_name]["Type"] = handle["Measurement"]
-                sensor["Series"][handle_name]["Unit"] = handle["Unit"]
-            self.fb.db.child("SensorsF").child(sensor_hash).set(sensor)
-
-        return sensor_hash
-
-    def setup_configs(self, plugin, sensor_key):
-        global fb
-
-        for config in plugin['Configs']:
-            config_key = hashlib.md5()
-            config_key.update(sensor_key)
-            config_key.update(config["ChartKey"])
-            for time_series in config['TimeSeries']:
-                config_key.update(time_series["SeriesKey"])
-
-            config_keyhash = config_key.hexdigest()
-            config_result = self.fb.db.child("SensorConfigs").child(config_keyhash).get()
-            if not config_result.val():
-                self.logger.debug(
-                    "Config {0} for plugin {1} does not exist on firebase. Creating with key {2}".format(
-                        config["Name"], plugin[
-                            'SensorName'], config_keyhash))
-                config["SensorKey"] = sensor_key
-                self.fb.db.child("SensorConfigs").child(config_keyhash).set(config)
-
-            config_select_result = self.fb.db.child("SelectConfig").child(sensor_key).child(config["Name"]).child(
-                config["ChartKey"]).get()
-            if not config_select_result.val():
-                self.fb.db.child("SelectConfig").child(sensor_key).child(config["Name"]).child(config["ChartKey"]).set(
-                    config_keyhash)
-
 
 if __name__ == "__main__":
     """The tagscanner runs in another thread, to continously check wether cards are scanned or not
@@ -206,9 +135,9 @@ if __name__ == "__main__":
     bluetooth_thread = Thread(target=main_loop.run, args=())
     bluetooth_thread.daemon = True
 
-    scanner_thread = threading.Thread(target=Last_tagged_user.main)
-    scanner_thread.daemon = True
-    scanner_thread.start()
+    # scanner_thread = threading.Thread(target=Last_tagged_user.main)
+    # scanner_thread.daemon = True
+    #scanner_thread.start()
 
     instance.logger.info("Loading all plugins from plugin directory.")
     sensors = instance.parse_plugins()

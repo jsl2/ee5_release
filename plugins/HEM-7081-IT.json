@@ -29,7 +29,7 @@
   "Configs": [
     {
       "ChartKey": "MultiLineGraph",
-      "Name": "Blood Pressure",
+      "Name": "Blood Pressurez",
       "TimeSeries": [
         {
           "SeriesKey": "S1_0"

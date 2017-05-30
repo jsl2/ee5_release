@@ -54,9 +54,16 @@ class Firebase(object):
             user = Last_tagged_user.get_number()
 
         if not self.check_user(user):
-            print("User", user, " doesn't exist")
+            print("User ", user, " doesn't exist")
             return
-        # gateway.instance.setup_sensor(plugin)
+
+        sensor_hash = hashlib.md5(plugin['SensorName']).hexdigest()
+        sensor_result = self.db.child("SensorsF").child(sensor_hash).get()
+
+        if not sensor_result.val():
+            print("Sensor ", plugin['SensorName'], " doesn't exist: firebase out of sync.")
+            return
+
         sensor_hash = hashlib.md5(plugin['SensorName']).hexdigest()
         firebase_measurements = self.db.child('MeasurementsF').child(user).child(sensor_hash).get().val()
         if firebase_measurements is None:
