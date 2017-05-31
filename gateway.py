@@ -135,9 +135,9 @@ if __name__ == "__main__":
     bluetooth_thread = Thread(target=main_loop.run, args=())
     bluetooth_thread.daemon = True
 
-    # scanner_thread = threading.Thread(target=Last_tagged_user.main)
-    # scanner_thread.daemon = True
-    #scanner_thread.start()
+    scanner_thread = threading.Thread(target=Last_tagged_user.main)
+    scanner_thread.daemon = True
+    scanner_thread.start()
 
     instance.logger.info("Loading all plugins from plugin directory.")
     sensors = instance.parse_plugins()
