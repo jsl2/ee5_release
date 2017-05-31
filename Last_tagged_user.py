@@ -1,4 +1,5 @@
 import re
+import os
 from threading import Timer
 from time import sleep
 
@@ -33,13 +34,15 @@ capscodes = {
 
 # Some global variables need to be initialized on start
 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+service_account_path = os.path.join(dir_path, "../ee5dashboard-firebase-adminsdk-v0ub6-acbcb82ad1.json")
 config = {
     "apiKey": "",
     "authDomain": "",
     "databaseURL": "https://ee5dashboard.firebaseio.com/",
     "storageBucket": "",
-    "serviceAccount": "/home/pi/ee5_scratchpad/ee5dashboard-firebase-adminsdk-v0ub6-acbcb82ad1.json"
-}
+    "serviceAccount": service_account_path
+    }
 
 # cred = credentials.Certificate("/home/pi/ee5_scratchpad/ee5dashboard-firebase-adminsdk-v0ub6-acbcb82ad1.json")
 # firebase_admin.initialize_app(cred)
