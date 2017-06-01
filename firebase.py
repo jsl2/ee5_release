@@ -35,7 +35,7 @@ class Firebase(object):
         self.send_lock = Lock()
         self.db = firebase.database()
 
-    def send(self, measurements, plugin=None, user='r0479950'):
+    def send(self, measurements, plugin=None, user=None):
         """Send set of measurements to firebase for a given user  and sensor.
 
         Args:
