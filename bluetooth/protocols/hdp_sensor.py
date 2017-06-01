@@ -221,6 +221,7 @@ class HDP(Sensor):
                             self.measurements[obj_handle] = measurement
 
             if not self.measurements == {}:
+                print self.measurements
                 measurements_received_cb(self.measurements)
 
 
