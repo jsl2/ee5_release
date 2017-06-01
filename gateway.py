@@ -11,7 +11,7 @@ import logging
 import os
 from dbus.mainloop.glib import DBusGMainLoop
 from importlib import import_module
-from threading import Thread
+import threading
 
 import yaml
 
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     DBusGMainLoop(set_as_default=True)
     gobject.threads_init()
     main_loop = gobject.MainLoop()
-    bluetooth_thread = Thread(target=main_loop.run, args=())
+    bluetooth_thread = threading.Thread(target=main_loop.run, args=())
     bluetooth_thread.daemon = True
 
     scanner_thread = threading.Thread(target=Last_tagged_user.main)
